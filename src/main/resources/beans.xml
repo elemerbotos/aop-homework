@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<context:component-scan base-package="com.epam.training.warcraft.aspects" />
+
+	<context:spring-configured/>
+
+	<!-- Soldiers -->
+
+	<bean id="armyOfDark" class="com.epam.botor.domain.Army"
+		c:leader-ref="darkLordOfTheSith" c:fighters-ref="darkFightersMap"
+		init-method="sayReady">
+	</bean>
+
+	<util:constant id="attackerType"
+		static-field="com.epam.botor.domain.FighterType.ATTACKER" />
+	<util:constant id="defenderType"
+		static-field="com.epam.botor.domain.FighterType.DEFENDER" />
+
+	<util:map id="darkFightersMap">
+		<entry key-ref="attackerType" value-ref="darkAttackerList" />
+		<entry key-ref="defenderType" value-ref="darkDefenderList" />
+		<entry key="ELITE" value="#{@darkAttackerList.?[blaster.damage gt 20]}" />
+	</util:map>
+
+	<util:list id="darkAttackerList">
+		<ref local="ionTrooper" />
+		<ref local="ionTrooper" />
+		<ref local="ionTrooper" />
+		<ref local="trooper" />
+		<ref local="trooper" />
+		<ref local="ionTrooper" />
+	</util:list>
+
+	<util:list id="darkDefenderList">
+		<ref local="ionTrooper" />
+		<ref local="trooper" />
+		<ref local="trooper" />
+		<ref local="ionTrooper" />
+		<ref local="trooper" />
+		<ref local="trooper" />
+	</util:list>
+
+	<!-- Weapons -->
+
+	<bean id="armyOfLight" class="com.epam.botor.domain.Army"
+		c:fighters-ref="lightFightersMap" autowire="constructor" init-method="sayReady" />
+
+	<util:map id="lightFightersMap">
+		<entry key="ATTACKER" value-ref="lightAttackerList" />
+		<entry key="DEFENDER" value-ref="lightDefenderList" />
+	</util:map>
+
+	<util:list id="lightAttackerList">
+		<ref local="farfalla" />
+		<ref local="johan" />
+	</util:list>
+
+	<util:list id="lightDefenderList">
+		<ref local="trooper" />
+		<ref local="ionTrooper" />
+		<ref local="trooper" />
+	</util:list>
+
+	<!-- Spells -->
+
+	<bean id="darkLordOfTheSith" class="com.epam.botor.domain.Sith"
+		c:name="Darth Bane" c:gender="MALE" p:lightsabres-ref="lordLightSabres" />
+
+</beans>
