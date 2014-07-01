@@ -1,16 +1,36 @@
 package com.epam.training.warcraft.domain;
 
 public class Spell implements Weapon{
-	private final int manaCost;
-	private final String name;
+	private int manaCost;
+	private String name;
 	private int damage;
 	
-	public Spell(int manaCost, String name, int damage) {
-		this.manaCost = manaCost;
-		this.name = name;
-		this.damage = damage;
+	public Spell() {
+		
 	}
 	
+	public int getManaCost() {
+		return manaCost;
+	}
+
+
+
+	public void setManaCost(int manaCost) {
+		this.manaCost = manaCost;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
 	public void cast(Person person) {
 		person.sufferDamage(this);
 	}

@@ -1,6 +1,6 @@
 package com.epam.training.warcraft.domain;
 
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public abstract class MagicUser implements Classes {
@@ -9,10 +9,11 @@ public abstract class MagicUser implements Classes {
 	protected Set<Spell> spells;
 	protected int mana;
 	
-	MagicUser() {
-		spells = new HashSet<Spell>();
+	public MagicUser() {
 		mana = MAXMANA;
 	}
+	
+	public abstract void initSpellSet();
 	
 	public abstract void castSpell(Person person, Spell spell);
 	
@@ -31,6 +32,23 @@ public abstract class MagicUser implements Classes {
 	public void restoreMana(int mana) {
 		int newMana = mana + this.mana;
 		this.mana = newMana > MAXMANA ? MAXMANA : newMana;
+	}
+	
+	protected boolean hasMoreManaThan(int manaCost) {
+		return mana>manaCost;
+	}
+	
+	protected Spell selectRandomeSpell() {
+		int index = (int)(Math.random() * (float)spells.size());
+		Iterator<Spell> iter = spells.iterator();
+		for(int i = 0 ; i < index && iter.hasNext() ; ++i) {
+			iter.next();
+		}
+		return iter.next();
+	}
+	
+	protected void useMana(int manaCost) {
+		mana -= manaCost;
 	}
 
 }

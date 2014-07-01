@@ -1,19 +1,45 @@
 package com.epam.training.warcraft.domain;
 
 public class Person {
-	private final Classes myClass;
-	private final Races myRace;
+	private Classes myClass;
+	private Races myRace;
 	private String name;
 	private Weapon weapon;
 	private Integer healthPoints;
 
-	protected Person(Classes myClass, Races myRace, String name,
-			Integer healthPoints) {
-		this.myClass = myClass;
-		this.myRace = myRace;
-		this.name = name;
+	protected Person() {
+
+	}
+
+	public Integer getHealthPoints() {
+		return healthPoints;
+	}
+
+
+
+	public void setHealthPoints(Integer healthPoints) {
 		this.healthPoints = healthPoints;
 	}
+
+
+
+	public void setMyClass(Classes myClass) {
+		this.myClass = myClass;
+	}
+
+
+
+	public void setMyRace(Races myRace) {
+		this.myRace = myRace;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 
 	public Weapon getWeapon() {
 		return weapon;

@@ -1,32 +1,35 @@
 package com.epam.training.warcraft.domain;
 
-public class Sword implements Weapon {
-
-	private int damage;
+public class Staff implements Weapon {
+	
+	private Integer damage;
 	private String name;
 	
-	public Sword() {
-
+	public Staff() {
+		
 	}
 	
-	public void setDamage(int damage) {
+	public void setDamage(Integer damage) {
 		this.damage = damage;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public int getDamage() {
 		return damage;
 	}
-	
-	public String getType() {
-		return "Sword";
-	}
 
+	@Override
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public String getType() {
+		return "Staff";
 	}
 
 }

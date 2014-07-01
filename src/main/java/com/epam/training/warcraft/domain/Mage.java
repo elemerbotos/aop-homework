@@ -1,6 +1,7 @@
 package com.epam.training.warcraft.domain;
 
-import java.util.Iterator;
+import java.util.HashSet;
+
 
 public class Mage extends MagicUser {
 
@@ -21,9 +22,9 @@ public class Mage extends MagicUser {
 
 	@Override
 	public void castSpell(Person person, Spell spell) {
-		if(getMana()>spell.manaCost()) {
+		if(hasMoreManaThan(spell.manaCost())) {
 			spell.cast(person);
-			mana -= spell.manaCost();
+			useMana(spell.manaCost());
 		} else {
 			throw new IllegalArgumentException("Not enough mana! ");
 		}
@@ -35,12 +36,12 @@ public class Mage extends MagicUser {
 		if(spells.isEmpty()) {
 			throw new IllegalArgumentException("No known spell! ");
 		}
-		Spell spell = null;
-		int index = (int)(Math.random() * (float)spells.size());
-		Iterator<Spell> iter = spells.iterator();
-		for(int i = 0 ; i < index && iter.hasNext() ; ++i) {
-			iter.next();
-		}
-		castSpell(person, iter.next());
+		castSpell(person, selectRandomeSpell());
 	}
+
+	@Override
+	public void initSpellSet() {
+		spells = new HashSet<>();	
+	}
+
 }
