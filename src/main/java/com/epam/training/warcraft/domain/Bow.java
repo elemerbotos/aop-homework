@@ -5,10 +5,6 @@ public class Bow implements Weapon{
 	private int damage;
 	private String name;
 	
-	public Bow() {
-		
-	}
-	
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}

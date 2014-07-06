@@ -5,10 +5,6 @@ public class Staff implements Weapon {
 	private Integer damage;
 	private String name;
 	
-	public Staff() {
-		
-	}
-	
 	public void setDamage(Integer damage) {
 		this.damage = damage;
 	}

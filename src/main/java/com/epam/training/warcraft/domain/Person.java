@@ -7,10 +7,6 @@ public class Person {
 	private Weapon weapon;
 	private Integer healthPoints;
 
-	protected Person() {
-
-	}
-
 	public Integer getHealthPoints() {
 		return healthPoints;
 	}
@@ -65,20 +61,8 @@ public class Person {
 	}
 
 	public void Attack(Person person) {
-		if(!tryToCastASpell(person)) {
 			person.sufferDamage(weapon);
-		}
 	}
-	
-	public boolean tryToCastASpell(Person person) {
-		try {
-			((MagicUser) myClass).castASpell(person);
-			return true;
-		} catch (IllegalArgumentException|ClassCastException e) {
-			return false;
-		}
-	}
-
 
 	public boolean isDead() {
 		return healthPoints == 0;
@@ -87,7 +71,7 @@ public class Person {
 	protected void sufferDamage(Weapon weapon2) {
 		int damage = (int)(myClass.getResistance(weapon2)
 				* myRace.getResistance(weapon2) * ((float) weapon2.getDamage()));
-		healthPoints = healthPoints >= damage ? healthPoints - damage : 0;
+		healthPoints = healthPoints > damage ? healthPoints - damage : 0;
 	}
 
 	@Override

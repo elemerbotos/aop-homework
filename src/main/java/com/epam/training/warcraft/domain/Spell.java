@@ -5,10 +5,6 @@ public class Spell implements Weapon{
 	private String name;
 	private int damage;
 	
-	public Spell() {
-		
-	}
-	
 	public int getManaCost() {
 		return manaCost;
 	}

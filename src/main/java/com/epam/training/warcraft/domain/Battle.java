@@ -4,12 +4,11 @@ import java.util.List;
 
 public abstract class Battle {
 	
-	private List<Person> soldiers;
+	protected List<Person> soldiersFirstSide;
+	protected List<Person> soldiersSecondSide;
 	private String name;
 	
-	public Battle() {
-		
-	}
+	public abstract void run();
 
 	public String getName() {
 		return name;
@@ -19,15 +18,27 @@ public abstract class Battle {
 		this.name = name;
 	}
 
-	public List<Person> getSoldiers() {
-		return soldiers;
+	public List<Person> getSoldiersFirstSide() {
+		return soldiersFirstSide;
 	}
 
-	public void addSoldier(Person soldier) {
-		this.soldiers.add(soldier);
+	public void addSoldierToFirstSide(Person soldier) {
+		this.soldiersFirstSide.add(soldier);
 	}
 	
-	public void setSoldiers(List<Person> soldiers) {
-		this.soldiers = soldiers;
+	public void setSoldiersFirstSide(List<Person> soldiers) {
+		this.soldiersFirstSide = soldiers;
+	}
+	
+	public List<Person> SoldiersSecondSide() {
+		return soldiersSecondSide;
+	}
+
+	public void addSoldierToSecondSide(Person soldier) {
+		this.soldiersSecondSide.add(soldier);
+	}
+	
+	public void setSoldiersSecondSide(List<Person> soldiers) {
+		this.soldiersSecondSide = soldiers;
 	}
 }

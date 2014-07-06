@@ -13,66 +13,78 @@
 
 	<context:spring-configured/>
 
-	<!-- Soldiers -->
-
-	<bean id="armyOfDark" class="com.epam.botor.domain.Army"
-		c:leader-ref="darkLordOfTheSith" c:fighters-ref="darkFightersMap"
-		init-method="sayReady">
-	</bean>
-
-	<util:constant id="attackerType"
-		static-field="com.epam.botor.domain.FighterType.ATTACKER" />
-	<util:constant id="defenderType"
-		static-field="com.epam.botor.domain.FighterType.DEFENDER" />
-
-	<util:map id="darkFightersMap">
-		<entry key-ref="attackerType" value-ref="darkAttackerList" />
-		<entry key-ref="defenderType" value-ref="darkDefenderList" />
-		<entry key="ELITE" value="#{@darkAttackerList.?[blaster.damage gt 20]}" />
-	</util:map>
-
-	<util:list id="darkAttackerList">
-		<ref local="ionTrooper" />
-		<ref local="ionTrooper" />
-		<ref local="ionTrooper" />
-		<ref local="trooper" />
-		<ref local="trooper" />
-		<ref local="ionTrooper" />
-	</util:list>
-
-	<util:list id="darkDefenderList">
-		<ref local="ionTrooper" />
-		<ref local="trooper" />
-		<ref local="trooper" />
-		<ref local="ionTrooper" />
-		<ref local="trooper" />
-		<ref local="trooper" />
-	</util:list>
-
 	<!-- Weapons -->
+	
+	<bean id="simpleBow" class="com.epam.training.warcraft.domain.Bow"
+		p:damage="20"
+		p:name="Simple Bow"
+		scope="prototype"/>
+		
+	<bean id="simpleStaff" class="com.epam.training.warcraft.domain.Staff"
+		p:damage="30"
+		p:name="Simple Staff"
+		scope="prototype"/>
+		
+	<bean id="simpleSword" class="com.epam.training.warcraft.domain.Sword"
+		p:damage="40"
+		p:name="Simple Sword"
+		scope="prototype"/>
 
-	<bean id="armyOfLight" class="com.epam.botor.domain.Army"
-		c:fighters-ref="lightFightersMap" autowire="constructor" init-method="sayReady" />
+	<!-- Classes -->
+	
+	<bean id="paladin" class="com.epam.training.warcraft.domain.Paladin" />
+	<bean id="mage" class="com.epam.training.warcraft.domain.Mage" />
+	<bean id="hunter" class="com.epam.training.warcraft.domain.Hunter" />
+	
+	<!-- Races -->
+	
+	<bean id="orc" class="com.epam.training.warcraft.domain.Orcs"/>
+	<bean id="nightElf" class="com.epam.training.warcraft.domain.NightElves"/>
 
-	<util:map id="lightFightersMap">
-		<entry key="ATTACKER" value-ref="lightAttackerList" />
-		<entry key="DEFENDER" value-ref="lightDefenderList" />
-	</util:map>
+	<!-- SoldiersFirst -->
 
-	<util:list id="lightAttackerList">
-		<ref local="farfalla" />
-		<ref local="johan" />
+	<bean id="orcPaladin" class="com.epam.training.warcraft.domain.Person"
+		p:healthPoints="500"
+		p:myClass-ref="paladin"
+		p:myRace-ref="orc"
+		p:name="Orc Paladin"
+		p:weapon-ref="simpleSword"/>
+		
+	<bean id="orcHunter" class="com.epam.training.warcraft.domain.Person"
+		p:healthPoints="300"
+		p:myClass-ref="hunter"
+		p:myRace-ref="orc"
+		p:name="Orc Hunter"
+		p:weapon-ref="simpleBow"/>
+		
+	<bean id="nightElfPaladin" class="com.epam.training.warcraft.domain.Person"
+		p:healthPoints="600"
+		p:myClass-ref="paladin"
+		p:myRace-ref="nightElf"
+		p:name="NightElf Paladin"
+		p:weapon-ref="simpleSword"/>
+		
+	<bean id="nightElfMage" class="com.epam.training.warcraft.domain.Person"
+		p:healthPoints="250"
+		p:myClass-ref="mage"
+		p:myRace-ref="nightElf"
+		p:name="NightElf Mage"
+		p:weapon-ref="simpleStaff"/>
+
+	<util:list id="attackerList">
+		<ref local="orcPaladin" />
+		<ref local="orcHunter" />
 	</util:list>
 
-	<util:list id="lightDefenderList">
-		<ref local="trooper" />
-		<ref local="ionTrooper" />
-		<ref local="trooper" />
+	<util:list id="defenderList">
+		<ref local="nightElfPaladin" />
+		<ref local="nightElfMage" />
 	</util:list>
 
-	<!-- Spells -->
+	<!-- Battle -->
 
-	<bean id="darkLordOfTheSith" class="com.epam.botor.domain.Sith"
-		c:name="Darth Bane" c:gender="MALE" p:lightsabres-ref="lordLightSabres" />
+	<bean id="battle" class="com.epam.training.warcraft.domain.BattleForAzeroth"
+		p:soldiersFirstSide-ref="attackerList"
+		p:soldiersSecondSide-ref="defenderList"/>
 
 </beans>
